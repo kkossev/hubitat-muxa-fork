@@ -50,6 +50,7 @@
  *  Ver. 1.1.1  2024-05-05 kkossev - added toggle command; added more TS0726 fingerprints; added TS1002 _TZ3000_xa9g7rxs (a weird device!); added _TZ3000_hznzbl0x _TZ3000_mtnpt6ws _TZ3000_pxfjrzyj _TZ3000_pk8tgtdb _TZ3000_ywubfuvt _TZ3000_yervjnlj _TZ3000_f09j9qjb tnx @Gabriel
  *  Ver. 1.1.2  2024-07-22 hhorigian - added  TS000F _TZ3000_m8f3z8ju, 2 Gang Relay.
  *  Ver. 1.1.3  2024-07-24 kkossev - merged dev. branch to main branch
+ *  Ver. 1.1.4  2024-08-10 kkossev - (dev. branch) added TS000F _TZ3000_hdc8bbha
  *
  *                                   TODO: automatic logsOff()
  *                                   TODO: add healthCheck
@@ -62,8 +63,8 @@ import groovy.transform.Field
 import com.hubitat.app.DeviceWrapper
 import com.hubitat.app.ChildDeviceWrapper
 
-static String version() { '1.1.3' }
-static String timeStamp() { '2024/07/24 9:28 PM' }
+static String version() { '1.1.4' }
+static String timeStamp() { '2024/08/10 10:14 AM' }
 
 @Field static final Boolean debug = false
 @Field static final Integer MAX_PING_MILISECONDS = 10000     // rtt more than 10 seconds will be ignored
@@ -112,6 +113,7 @@ metadata {
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0001', manufacturer: '_TZ3000_v7gnj3ad', deviceJoinName: 'Tuya Zigbee Switch'
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0001', manufacturer: '_TZ3000_qsp2pwtf', deviceJoinName: 'Tuya Zigbee Switch'
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS000F', manufacturer: '_TZ3000_m9af2l6g', deviceJoinName: 'Tuya Zigbee Switch'
+        fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS000F', manufacturer: '_TZ3000_hdc8bbha', deviceJoinName: 'Tuya Zigbee Switch'            // https://community.hubitat.com/t/tuya-1-gang-switch-module-momentary-mode-again/141497/6?u=kkossev
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0001', manufacturer: '_TZ3000_oex7egmt', deviceJoinName: 'Tuya 1 gang Zigbee switch MYQ-KLS01L'        //https://expo.tuya.com/product/601097
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0001', manufacturer: '_TZ3000_tqlv4ug4', deviceJoinName: 'GIRIER Tuya ZigBee 3.0 Light Switch Module'  //https://community.hubitat.com/t/girier-tuya-zigbee-3-0-light-switch-module-smart-diy-breaker-1-2-3-4-gang-supports-2-way-control/104546
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0000,0003,0004,0005,0006', outClusters: '0019', model: 'TS0001', manufacturer: '_TZ3000_agpdnnyd', deviceJoinName: 'Tuya Zigbee Switch'
