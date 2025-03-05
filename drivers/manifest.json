@@ -1,10 +1,10 @@
 {
  "packageName":"Zemismart ZigBee Wall Switch Multi-Gang",
  "author":"Muxa, kkossev",
- "version":"1.1.0",
+ "version":"1.1.5",
  "minimumHEVersion":"2.3.7.100",
- "dateReleased":"2024-05-03",
- "releaseNotes":"1.1.0  2024-05-02 - added TS0726 _TZ3000_kt6xxa4o; added switchBacklight command; added TS0001 _TZ3000_ovyaisip; TS0001 _TZ3000_4rbqgcuv; TS0002 _TZ3000_kgxej1dv; TS0003 _TZ3000_qxcnwv26;\n1.0.0  2024-05-01 - first version pushed to HPM",
+ "dateReleased":"2025-03-05",
+ "releaseNotes":"1.1.5  2025-03-05 kkossev - added TS0004 _TZ3000_u3oupgdy\n1.1.4  2024-08-10 - added TS000F _TZ3000_hdc8bbha\n1.1.3  2024-07-24 - merged dev. branch to main branch\n1.1.2  2024-07-22 hhorigian - added  TS000F _TZ3000_m8f3z8ju, 2 Gang Relay.\n1.1.1  2024-05-05 kkossev - added toggle command; added more TS0726 fingerprints; added TS1002 _TZ3000_xa9g7rxs (a weird device!); added _TZ3000_hznzbl0x _TZ3000_mtnpt6ws _TZ3000_pxfjrzyj _TZ3000_pk8tgtdb _TZ3000_ywubfuvt _TZ3000_yervjnlj _TZ3000_f09j9qjb tnx @Gabriel\n1.1.0  2024-05-02 - added TS0726 _TZ3000_kt6xxa4o; added switchBacklight command; added TS0001 _TZ3000_ovyaisip; TS0001 _TZ3000_4rbqgcuv; TS0002 _TZ3000_kgxej1dv; TS0003 _TZ3000_qxcnwv26;\n1.0.0  2024-05-01 - first version pushed to HPM",
  "documentationLink":"https://community.hubitat.com/t/zemismart-zigbee-1-2-3-4-gang-light-switches/21124/36?u=kkossev",
  "communityLink":"https://community.hubitat.com/t/zemismart-zigbee-1-2-3-4-gang-light-switches/21124/36?u=kkossev",
  "drivers": [

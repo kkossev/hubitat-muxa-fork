@@ -50,7 +50,8 @@
  *  Ver. 1.1.1  2024-05-05 kkossev - added toggle command; added more TS0726 fingerprints; added TS1002 _TZ3000_xa9g7rxs (a weird device!); added _TZ3000_hznzbl0x _TZ3000_mtnpt6ws _TZ3000_pxfjrzyj _TZ3000_pk8tgtdb _TZ3000_ywubfuvt _TZ3000_yervjnlj _TZ3000_f09j9qjb tnx @Gabriel
  *  Ver. 1.1.2  2024-07-22 hhorigian - added  TS000F _TZ3000_m8f3z8ju, 2 Gang Relay.
  *  Ver. 1.1.3  2024-07-24 kkossev - merged dev. branch to main branch
- *  Ver. 1.1.4  2024-08-10 kkossev - (dev. branch) added TS000F _TZ3000_hdc8bbha
+ *  Ver. 1.1.4  2024-08-10 kkossev - added TS000F _TZ3000_hdc8bbha
+ *  Ver. 1.1.5  2025-03-05 kkossev - added TS0004 _TZ3000_u3oupgdy
  *
  *                                   TODO: automatic logsOff()
  *                                   TODO: add healthCheck
@@ -63,8 +64,8 @@ import groovy.transform.Field
 import com.hubitat.app.DeviceWrapper
 import com.hubitat.app.ChildDeviceWrapper
 
-static String version() { '1.1.4' }
-static String timeStamp() { '2024/08/10 10:14 AM' }
+static String version() { '1.1.5' }
+static String timeStamp() { '2025/03/05 8:37 PM' }
 
 @Field static final Boolean debug = false
 @Field static final Integer MAX_PING_MILISECONDS = 10000     // rtt more than 10 seconds will be ignored
@@ -263,6 +264,7 @@ metadata {
         //
         fingerprint profileId:'0104', endpointId:'01', inClusters:'0000,0001,0003,0004,1000,E001', outClusters:'0019,000A,0003,0004,0005,0006,0008,0300,1000', model:'TS1002', manufacturer:'_TZ3000_xa9g7rxs', deviceJoinName: 'Tuya TS1002 switch'
         fingerprint profileId:'0104', endpointId:'01', inClusters:'0004,0005,0006,E000,E001,0000', outClusters:'0019,000A', model:'TS000F', manufacturer:'_TZ3000_m8f3z8ju', deviceJoinName: 'Tuya Zigbee Switch 2 Gang'        // BRazil 2CH Zigbee
+        fingerprint profileId:"0104", endpointId:"01", inClusters:"0003,0004,0005,0006,E000,E001,0000", outClusters:"0019,000A", model:"TS0004", manufacturer:"_TZ3000_u3oupgdy", controllerType: "ZGB", deviceJoinName: 'Tuya Zigbee Switch 2 Gang'        // MHCOZY 4ch Switch
     }
     preferences {
         input(name: 'txtEnable', type: 'bool', title: 'Enable description text logging', defaultValue: true)
