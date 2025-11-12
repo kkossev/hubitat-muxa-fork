@@ -50,6 +50,10 @@
  *  Ver. 1.1.1  2024-05-05 kkossev - added toggle command; added more TS0726 fingerprints; added TS1002 _TZ3000_xa9g7rxs (a weird device!); added _TZ3000_hznzbl0x _TZ3000_mtnpt6ws _TZ3000_pxfjrzyj _TZ3000_pk8tgtdb _TZ3000_ywubfuvt _TZ3000_yervjnlj _TZ3000_f09j9qjb tnx @Gabriel
  *  Ver. 1.1.2  2024-07-22 hhorigian - added  TS000F _TZ3000_m8f3z8ju, 2 Gang Relay.
  *  Ver. 1.1.3  2024-07-24 kkossev - merged dev. branch to main branch
+ *  Ver. 1.1.4  2024-08-10 kkossev - added TS000F _TZ3000_hdc8bbha
+ *  Ver. 1.1.4  2024-11-25 hhorigian - addded TS0006 _TZ3000_kw8pmgbe, 6BTN Novadigital Keypad
+ *  Ver. 1.1.5  2025-03-05 kkossev - added TS0004 _TZ3000_u3oupgdy
+ *  Ver. 1.1.6  2025-11-12 kkossev - proper handling of TS000F _TZ3000_m8f3z8ju switchType
  *
  *                                   TODO: automatic logsOff()
  *                                   TODO: add healthCheck
@@ -62,8 +66,8 @@ import groovy.transform.Field
 import com.hubitat.app.DeviceWrapper
 import com.hubitat.app.ChildDeviceWrapper
 
-static String version() { '1.1.3' }
-static String timeStamp() { '2024/07/24 9:28 PM' }
+static String version() { '1.1.6' }
+static String timeStamp() { '2025/11/12 8:40 PM' }
 
 @Field static final Boolean debug = false
 @Field static final Integer MAX_PING_MILISECONDS = 10000     // rtt more than 10 seconds will be ignored
@@ -112,6 +116,8 @@ metadata {
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0001', manufacturer: '_TZ3000_v7gnj3ad', deviceJoinName: 'Tuya Zigbee Switch'
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0001', manufacturer: '_TZ3000_qsp2pwtf', deviceJoinName: 'Tuya Zigbee Switch'
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS000F', manufacturer: '_TZ3000_m9af2l6g', deviceJoinName: 'Tuya Zigbee Switch'
+        fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS000F', manufacturer: '_TZ3000_hdc8bbha', deviceJoinName: 'Tuya Zigbee Switch'            // https://community.hubitat.com/t/tuya-1-gang-switch-module-momentary-mode-again/141497/6?u=kkossev
+        fingerprint profileId: '0104', endpointId: '01', inClusters: '0000,0003,0004,0005,0006,E000,EF00', outClusters: '000A,0019', model: 'TS000F', manufacturer: '_TZ3218_hdc8bbha', deviceJoinName: 'Tuya Zigbee Switch'            // https://community.hubitat.com/t/tuya-1-gang-switch-module-momentary-mode-again/141497/6?u=kkossev
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0001', manufacturer: '_TZ3000_oex7egmt', deviceJoinName: 'Tuya 1 gang Zigbee switch MYQ-KLS01L'        //https://expo.tuya.com/product/601097
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0001', manufacturer: '_TZ3000_tqlv4ug4', deviceJoinName: 'GIRIER Tuya ZigBee 3.0 Light Switch Module'  //https://community.hubitat.com/t/girier-tuya-zigbee-3-0-light-switch-module-smart-diy-breaker-1-2-3-4-gang-supports-2-way-control/104546
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0000,0003,0004,0005,0006', outClusters: '0019', model: 'TS0001', manufacturer: '_TZ3000_agpdnnyd', deviceJoinName: 'Tuya Zigbee Switch'
@@ -242,8 +248,6 @@ metadata {
         //
         fingerprint profileId:'0104', endpointId:'01', inClusters:'0000,0001,0003,0004,1000,E001', outClusters:'0019,000A,0003,0004,0005,0006,0008,0300,1000', model:'TS1002', manufacturer:'_TZ3000_xa9g7rxs', deviceJoinName: 'Tuya TS1002 switch'
         //
-        fingerprint profileId: '0104', endpointId: '01', inClusters: '0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS000F', manufacturer: '_TZ3000_m8f3z8ju', deviceJoinName: 'Tuya Zigbee Switch 2 Gang' // BRazil 2CH Zigbee
-
         fingerprint profileId:'0104', endpointId:'01', inClusters:'0000,0003,0004,0005,0006,E000,E001', outClusters:'0019,000A', model:'TS0726', manufacturer:'_TZ3000_dfl9kueg', deviceJoinName: 'TS0726 switches/scenes'      // not tested
         fingerprint profileId:'0104', endpointId:'01', inClusters:'0000,0003,0004,0005,0006,E000,E001', outClusters:'0019,000A', model:'TS0726', manufacturer:'_TZ3002_ml1agdim', deviceJoinName: 'TS0726 switches/scenes'      // not tested
         fingerprint profileId:'0104', endpointId:'01', inClusters:'0000,0003,0004,0005,0006,E000,E001', outClusters:'0019,000A', model:'TS0726', manufacturer:'_TZ3000_wsspgtcd', deviceJoinName: 'TS0726 switches/scenes'      // not tested
@@ -259,8 +263,10 @@ metadata {
         fingerprint profileId:'0104', endpointId:'01', inClusters:'0000,0003,0004,0005,0006,E000,E001', outClusters:'0019,000A', model:'TS0726', manufacturer:'_TZ3002_phu8ygaw', deviceJoinName: 'TS0726 switches/scenes'      // not tested
         fingerprint profileId:'0104', endpointId:'01', inClusters:'0000,0003,0004,0005,0006,E000,E001', outClusters:'0019,000A', model:'TS0726', manufacturer:'_TZ3002_sal078g8', deviceJoinName: 'TS0726 switches/scenes'      // not tested
         //
+        fingerprint profileId: '0104', endpointId: '01', inClusters: '0004,0005,0006,E000,0000', outClusters: '0019,000A', model: 'TS0006', manufacturer: '_TZ3000_kw8pmgbe', deviceJoinName: 'NovaDigital Zigbee Switch 6BTN' // NOVADIGITAL        
         fingerprint profileId:'0104', endpointId:'01', inClusters:'0000,0001,0003,0004,1000,E001', outClusters:'0019,000A,0003,0004,0005,0006,0008,0300,1000', model:'TS1002', manufacturer:'_TZ3000_xa9g7rxs', deviceJoinName: 'Tuya TS1002 switch'
         fingerprint profileId:'0104', endpointId:'01', inClusters:'0004,0005,0006,E000,E001,0000', outClusters:'0019,000A', model:'TS000F', manufacturer:'_TZ3000_m8f3z8ju', deviceJoinName: 'Tuya Zigbee Switch 2 Gang'        // BRazil 2CH Zigbee
+        fingerprint profileId:"0104", endpointId:"01", inClusters:"0003,0004,0005,0006,E000,E001,0000", outClusters:"0019,000A", model:"TS0004", manufacturer:"_TZ3000_u3oupgdy", controllerType: "ZGB", deviceJoinName: 'Tuya Zigbee Switch 2 Gang'        // MHCOZY 4ch Switch
     }
     preferences {
         input(name: 'txtEnable', type: 'bool', title: 'Enable description text logging', defaultValue: true)
@@ -282,6 +288,10 @@ private boolean isHEProblematic() {
 private boolean noBindingButPolling() {
     device.getDataValue('manufacturer') in ['_TZ3000_fvh3pjaz', '_TZ3000_9hpxg80k', '_TZ3000_wyhuocal']
 }    //0x4001 OnTime: value 0 //0x4002 OffWaitTime: value 0
+
+private boolean isTS000F() {
+    device.getDataValue('model') == 'TS000F'
+}
 
 // Parse incoming device messages to generate events
 
@@ -805,6 +815,7 @@ void initialize() {
     initializeVars(fullInit = true)
     configure()    // added 11/12/2022
     setupChildDevices()
+    if (isTS000F()) { device?.deleteCurrentState('ledMode')  }
 }
 
 void installed() {
@@ -900,12 +911,26 @@ void switchType(final String type) {
         return
     }
     int modeEnum = typeMap[type]
+    List<String> cmds = []
     logDebug("setting  Switch Type to: ${type} (${modeEnum})")
-    List<String> cmds = zigbee.writeAttribute(0xE001, 0xD030, DataType.ENUM8, modeEnum)
+    if (isTS000F()) {
+        cmds = zigbee.writeAttribute(0x0006, 0x8001, DataType.ENUM8, modeEnum)
+        cmds += zigbee.readAttribute(0x0006, 0x8001)
+        logDebug "${device.displayName} Switch Type setting for TS000F model"
+    }
+    else {
+        cmds = zigbee.writeAttribute(0xE001, 0xD030, DataType.ENUM8, modeEnum)
+        cmds += zigbee.readAttribute(0xE001, 0xD030)
+        logDebug "${device.displayName} Switch Type setting for non-TS000F model"
+    }
     sendZigbeeCommands(cmds)
 }
 
 void ledMode(final String mode) {
+    if (isTS000F()) {
+        logInfo "${device.displayName} LED mode setting is not supported on TS000F model"
+        return
+    }
     Map<String, Integer> modeMap = LedModeMap.collectEntries { k, v -> [(v): k] }
     if (!modeMap.containsKey(mode)) {
         log.error "${device.displayName} please select a LED mode option"
@@ -963,9 +988,16 @@ void processOnOfClusterOtherAttr(final Map it) {
             mode = value == 0 ? 'off' : 'on'
             break
         case '0006_8001':
-            attrName = 'LED mode'
-            mode = LedModeMap[value]
-            eventMap = [name: 'ledMode', value: mode]
+            if (isTS000F()) {
+                attrName = 'Switch Type'
+                mode = value == 0 ? 'toggle' : value == 1 ? 'state' : value == 2 ? 'momentary state' : null
+                eventMap = [name: 'switchType', value: mode]
+            }
+            else { 
+                attrName = 'LED mode'
+                mode = LedModeMap[value]
+                eventMap = [name: 'ledMode', value: mode]
+            }
             break
         case '0006_8002':
             attrName = 'Power On State'
@@ -997,6 +1029,7 @@ void processOnOfClusterOtherAttr(final Map it) {
         case 'E001_D030':
             attrName = 'Switch Type'
             mode = value == 0 ? 'toggle' : value == 1 ? 'state' : value == 2 ? 'momentary state' : null
+            eventMap = [name: 'switchType', value: mode]
             break
         default:
             logDebug "processOnOfClusterOtherAttr: <b>UNPROCESSED On/Off Cluster</b>  attrId: ${it.attrId} value: ${it.value}"
@@ -1010,7 +1043,127 @@ void processOnOfClusterOtherAttr(final Map it) {
     }
 }
 
-void test(final String description) {
-    log.warn "testing <b>${description}</b>"
-    parse(description)
+// Forces the ZCL Disable Default Response bit (0x10) only on EF00/E001 Write Attributes (0x02)
+private List<String> noDefaultResponseForTuyaWrites(List<String> cmds) {
+    if (!cmds) return cmds
+    List<String> out = []
+    cmds.each { String cmd -> out << noDefaultResponseForTuyaWriteOne(cmd) }
+    return out
 }
+
+private String noDefaultResponseForTuyaWriteOne(String cmd) {
+    logDebug "noDefaultResponseForTuyaWriteOne: processing cmd='${cmd}'"
+    
+    if (!cmd) {
+        logDebug "noDefaultResponseForTuyaWriteOne: cmd is null or empty, returning as-is"
+        return cmd
+    }
+
+    // Handle Hubitat 'he wattr' commands for Tuya clusters
+    if (cmd.startsWith("he wattr") && (cmd.contains("0xE001") || cmd.contains("0xEF00"))) {
+        logDebug "noDefaultResponseForTuyaWriteOne: detected Hubitat wattr command for Tuya cluster"
+        // For Hubitat wattr commands, add the disable default response flag at the end
+        if (!cmd.contains("0x10")) {
+            String modifiedCmd = cmd.replaceFirst(/\{\}$/, "{0x10}")
+            logDebug "noDefaultResponseForTuyaWriteOne: modified Hubitat cmd from '${cmd}' to '${modifiedCmd}'"
+            return modifiedCmd
+        } else {
+            logDebug "noDefaultResponseForTuyaWriteOne: Hubitat cmd already has disable default response flag"
+            return cmd
+        }
+    }
+
+    // Only touch commands that mention Tuya clusters EF00/E001
+    def clusterMatch = (cmd =~ /(?i)\s0x(E001|EF00)\b/)
+    if (!clusterMatch.find()) {
+        logDebug "noDefaultResponseForTuyaWriteOne: no Tuya cluster (EF00/E001) found in cmd, returning as-is"
+        return cmd
+    }
+    logDebug "noDefaultResponseForTuyaWriteOne: Tuya cluster detected in cmd"
+
+    // Grab the first {...} which should be the ZCL frame
+    def payloadMatcher = (cmd =~ /\{([0-9A-Fa-f ]+)\}/)
+    if (!payloadMatcher.find()) {
+        logDebug "noDefaultResponseForTuyaWriteOne: no ZCL frame payload found in braces, returning as-is"
+        return cmd
+    }
+
+    String zclHex = payloadMatcher.group(1).trim()
+    logDebug "noDefaultResponseForTuyaWriteOne: extracted ZCL hex payload='${zclHex}'"
+    
+    List<String> bytes = zclHex.split(/\s+/).findAll { it }
+    logDebug "noDefaultResponseForTuyaWriteOne: parsed ${bytes.size()} bytes: ${bytes}"
+    
+    if (bytes.size() < 4) {
+        logDebug "noDefaultResponseForTuyaWriteOne: payload too short (${bytes.size()} < 4 bytes), returning as-is"
+        return cmd // not a valid ZCL frame
+    }
+
+    try {
+        int fc = Integer.parseInt(bytes[0], 16)  // Frame Control
+        logDebug "noDefaultResponseForTuyaWriteOne: frame control byte=0x${String.format('%02X', fc)}"
+        
+        int idx = 1
+
+        // If manufacturer-specific bit is set, skip 2-byte mfg code
+        if ((fc & 0x04) != 0) {
+            logDebug "noDefaultResponseForTuyaWriteOne: manufacturer-specific bit set, skipping 2-byte mfg code"
+            idx += 2
+        }
+
+        if (bytes.size() <= idx + 1) {
+            logDebug "noDefaultResponseForTuyaWriteOne: insufficient bytes after header (${bytes.size()} <= ${idx + 1}), returning as-is"
+            return cmd
+        }
+        
+        /*int tsn =*/ Integer.parseInt(bytes[idx++], 16)
+        int cmdId = Integer.parseInt(bytes[idx], 16)
+        logDebug "noDefaultResponseForTuyaWriteOne: command ID=0x${String.format('%02X', cmdId)}"
+
+        // Only modify Write Attributes (0x02)
+        if (cmdId != 0x02) {
+            logDebug "noDefaultResponseForTuyaWriteOne: not a Write Attributes command (0x02), returning as-is"
+            return cmd
+        }
+        
+        logDebug "noDefaultResponseForTuyaWriteOne: Write Attributes command detected, modifying frame control"
+
+        // Set Disable Default Response bit (0x10); idempotent
+        int originalFc = fc
+        fc = fc | 0x10
+        bytes[0] = String.format("%02X", fc)
+        logDebug "noDefaultResponseForTuyaWriteOne: frame control modified from 0x${String.format('%02X', originalFc)} to 0x${String.format('%02X', fc)}"
+
+        String newPayload = bytes.join(' ')
+        String modifiedCmd = cmd.replaceFirst(/\{([0-9A-Fa-f ]+)\}/, "{${newPayload}}")
+        logDebug "noDefaultResponseForTuyaWriteOne: original payload='${zclHex}'"
+        logDebug "noDefaultResponseForTuyaWriteOne: modified payload='${newPayload}'"
+        logDebug "noDefaultResponseForTuyaWriteOne: returning modified cmd='${modifiedCmd}'"
+        
+        return modifiedCmd
+    } catch (Exception e) {
+        logDebug "noDefaultResponseForTuyaWriteOne: exception during parsing: ${e.message}, returning original cmd"
+        return cmd // fail-safe: keep original if parsing fails
+    }
+}
+
+void test(final String description) {
+    Integer modeEnum = description as Integer
+    log.warn "testing <b>${description}</b>"
+    //parse(description)
+	List<String> cmds = []
+    // Construct ZCL frame: FC(0x10=disable default response) + TSN(01) + CMD(02=write attr) + AttrID(30D0) + DataType(30) + Value
+    String zclFrame = String.format("10 01 02 30 D0 30 %02X", modeEnum)
+    String heRawCmd = "he raw 0x${device.deviceNetworkId} 1 0x01 0xE001 {${zclFrame}}"
+    cmds += heRawCmd
+    
+    // Add read command for the same attribute
+    // Construct ZCL frame: FC(0x10=disable default response) + TSN(02) + CMD(00=read attr) + AttrID(30D0)
+    String readZclFrame = "10 02 00 30 D0"
+    String heReadCmd = "he raw 0x${device.deviceNetworkId} 1 0x01 0xE001 {${readZclFrame}}"
+    cmds += heReadCmd
+    
+    logDebug("test sending cmds: ${cmds}")
+    sendZigbeeCommands(cmds)    
+}
+
