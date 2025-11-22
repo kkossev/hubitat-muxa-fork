@@ -54,7 +54,11 @@
  *  Ver. 1.1.4  2024-11-25 hhorigian - addded TS0006 _TZ3000_kw8pmgbe, 6BTN Novadigital Keypad
  *  Ver. 1.1.5  2025-03-05 kkossev - added TS0004 _TZ3000_u3oupgdy
  *  Ver. 1.1.6  2025-11-12 kkossev - proper handling of TS000F _TZ3000_m8f3z8ju switchType
+ *  Ver. 1.1.7  2025-11-22 kkossev - (dev. branhncg) add TS0004 _TZ3000_jwoyqycg 
  *
+ *                                   TODO: TS000F _TZ3000_m8f3z8ju switchType is not working! :( 
+ *                                   TODO: add TS0003 _TZ3000_ly9apzky Mod Escritorio (114) fingerprint profileId:"0104", endpointId:"01", inClusters:"0003,0004,0005,0006,0702,0B04,E000,E001,0000", outClusters:"0019,000A", model:"TS0003", manufacturer:"_TZ3000_ly9apzky", controllerType: "ZGB"
+ *                                   TODO: add TS0012 _TZ3000_nik4i1qg Mod Cabec 2_1 (130) fingerprint profileId:"0104", endpointId:"01", inClusters:"0003,0004,0005,0006,E000,E001,0000", outClusters:"0019,000A", model:"TS0012", manufacturer:"_TZ3000_nik4i1qg", controllerType: "ZGB"
  *                                   TODO: automatic logsOff()
  *                                   TODO: add healthCheck
  *                                   TODO: add numberOfGangs setting
@@ -66,8 +70,8 @@ import groovy.transform.Field
 import com.hubitat.app.DeviceWrapper
 import com.hubitat.app.ChildDeviceWrapper
 
-static String version() { '1.1.6' }
-static String timeStamp() { '2025/11/12 8:40 PM' }
+static String version() { '1.1.7' }
+static String timeStamp() { '2025/11/22 1:09 PM' }
 
 @Field static final Boolean debug = false
 @Field static final Integer MAX_PING_MILISECONDS = 10000     // rtt more than 10 seconds will be ignored
@@ -171,6 +175,7 @@ metadata {
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0004', manufacturer: '_TZ3000_excgg5kb'        // 4-relays module
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0004', manufacturer: '_TZ3000_w58g68s3'        // Yagusmart 3 gang zigbee switch
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0004', manufacturer: '_TZ3000_tqlv4ug4', deviceJoinName: 'GIRIER Tuya ZigBee 3.0 Light Switch Module'
+        fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0004', manufacturer: '_TZ3000_jwoyqycg', deviceJoinName: 'MOES ZigBee 4 Gang Switch'       // https://community.hubitat.com/t/have-moes-zigbee-4-gang-switch-tz3000-jwoyqycg/158965?u=kkossev
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0000,0003,0004,0005,0006', outClusters: '0019', model: 'TS0011', manufacturer: '_TZ3000_ybaprszv', deviceJoinName: 'Zemismart Zigbee Switch No Neutral'
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0011', manufacturer: '_TZ3000_txpirhfq', deviceJoinName: 'Tuya Zigbee Mini Switch TMZ02L'
         fingerprint profileId: '0104', endpointId: '01', inClusters: '0003,0004,0005,0006,E000,E001,0000', outClusters: '0019,000A', model: 'TS0011', manufacturer: '_TZ3000_hhiodade', deviceJoinName: 'Moes ZTS-EU_1gang'
