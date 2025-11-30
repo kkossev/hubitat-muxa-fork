@@ -54,7 +54,7 @@
  *  Ver. 1.1.4  2024-11-25 hhorigian - addded TS0006 _TZ3000_kw8pmgbe, 6BTN Novadigital Keypad
  *  Ver. 1.1.5  2025-03-05 kkossev - added TS0004 _TZ3000_u3oupgdy
  *  Ver. 1.1.6  2025-11-12 kkossev - proper handling of TS000F _TZ3000_m8f3z8ju switchType
- *  Ver. 1.1.7  2025-11-22 kkossev - (dev. brannch) added TS0004 _TZ3000_jwoyqycg 
+ *  Ver. 1.1.7  2025-11-30 kkossev - (dev. brannch) added TS0004 _TZ3000_jwoyqycg ; TS0003 _TZ3000_uilitwsy forced to 6 gangs;
  *
  *                                   TODO: TS000F _TZ3000_m8f3z8ju switchType is not working! :( 
  *                                   TODO: add TS0003 _TZ3000_ly9apzky Mod Escritorio (114) fingerprint profileId:"0104", endpointId:"01", inClusters:"0003,0004,0005,0006,0702,0B04,E000,E001,0000", outClusters:"0019,000A", model:"TS0003", manufacturer:"_TZ3000_ly9apzky", controllerType: "ZGB"
@@ -71,7 +71,7 @@ import com.hubitat.app.DeviceWrapper
 import com.hubitat.app.ChildDeviceWrapper
 
 static String version() { '1.1.7' }
-static String timeStamp() { '2025/11/22 1:09 PM' }
+static String timeStamp() { '2025/11/30 10:26 AM' }
 
 @Field static final Boolean debug = false
 @Field static final Integer MAX_PING_MILISECONDS = 10000     // rtt more than 10 seconds will be ignored
@@ -732,6 +732,12 @@ void setupChildDevices() {
             buttons = 4
             break
         case 'TS0003':
+            if (device.data.manufacturer in ['_TZ3000_uilitwsy']) { //https://community.hubitat.com/t/zemismart-6-gang/158944/3?u=kkossev
+                buttons = 6
+            } else {
+                buttons = 3
+            }
+            break
         case 'TS0013':
         case 'SBM300Z3':
         case 'ISM300Z3':
